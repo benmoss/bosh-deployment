@@ -87,6 +87,11 @@
         - tag: admin
           name: postgres
           password: ((postgres_password))
+      encryption:
+        active_key_label: key1
+        encryption_keys:
+        - label: key1
+          passphrase: ((uaa-encryption-password))
 
 - type: replace
   path: /instance_groups/name=bosh/properties/postgres/additional_databases?/-
@@ -138,3 +143,9 @@
       ca: default_ca
       common_name: ((internal_ip))
       alternative_names: [((internal_ip))]
+
+- type: replace
+  path: /variables/-
+  value:
+    name: uaa-encryption-password
+    type: password
